@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Iceland&family=Odibee+Sans&display=swap');
+.main_text{
+ font-family: "Gugi";
+}
+.side_text{
+     font-family: "Iceland";
+}
+.p_text{
+    font-family: "Odibee Sans";
+}
