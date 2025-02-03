@@ -1,39 +1,50 @@
 import "./App.css";
-import { useEffect, useState, useRef } from "react";
-import { motion } from "framer-motion";
-import LoadVideo from "/vid.mp4";
+import { useState, useEffect, useRef } from "react"
+import { motion } from "framer-motion"
+import backgroundVideo from "/video.mp4"
+import backgroundMusic from "/homesound.m4a"
+import clickSound from "/click.wav"
+import { SquareCheck, Settings, X } from "lucide-react"
 
 function App() {
-  const [showHome, setShowHome] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [showHome, setShowHome] = useState(false)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const [isMuted, setIsMuted] = useState(true)
 
   useEffect(() => {
-    // Play background audio
-    if (audioRef.current) {
-      audioRef.current.volume = 0.5;
-      audioRef.current.play().catch(() => console.log("Autoplay blocked"));
-    }
-
-    // Ensure video starts playing
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => console.log("Video autoplay blocked"));
-    }
-
-    // Transition to home page after 3 seconds
     const timer = setTimeout(() => {
-      setShowHome(true);
-    }, 3000);
+      setShowHome(true)
+    }, 3000)
 
-    return () => clearTimeout(timer);
-  }, []);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => console.log("Video autoplay blocked"))
+    }
+
+    if (audioRef.current) {
+      audioRef.current.volume = 0.5
+      audioRef.current.loop = true
+    }
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !audioRef.current.muted
+      setIsMuted(!isMuted)
+    }
+  }
+
+  const playClickSound = () => {
+    const audio = new Audio(clickSound)
+    audio.play()
+  }
 
   return (
     <div className="w-screen h-screen bg-black flex items-center justify-center relative">
-      {/* Background Audio */}
-      {/* <audio ref={audioRef} src="/homesound.m4a" loop /> */}
+      <audio ref={audioRef} src={backgroundMusic} />
 
-      {/* Welcome Screen */}
       {!showHome ? (
         <motion.div
           initial={{ scale: 1 }}
@@ -41,26 +52,20 @@ function App() {
           transition={{ duration: 2, ease: "easeInOut" }}
           className="text-white text-4xl md:text-6xl font-bold main_text text-center"
         >
-          <h1 className="text-white text-4xl md:text-[120px] font-bold main_text">
-            Ekemuku
-          </h1>
-          <span className="text-gray-500 side_text text-[60px]">
-            Do not talk about it
-          </span>
+          <h1 className="text-white text-4xl md:text-[120px] font-bold main_text">Ekemuku</h1>
+          <span className="text-gray-500 side_text text-[60px]">Do not talk about it</span>
         </motion.div>
       ) : (
-        // Home Page
         <motion.div
           initial={{ scale: 0.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
-          className="w-full h-full  text-white text-3xl relative"
+          className="w-full h-full text-white text-3xl relative"
         >
-          {/* Background Video */}
           <video
             ref={videoRef}
-            src={LoadVideo}
-            className="absolute top-0 left-0 w-full object-cover h-full "
+            src={backgroundVideo}
+            className="absolute top-0 left-0 w-full object-cover h-full"
             autoPlay
             loop
             muted
@@ -68,7 +73,8 @@ function App() {
           ></video>
 
           {/* Content Overlay */}
-          <div className="relative z-10 ">
+          <div className="relative z-10 h-screen">
+            {/* Existing content... */}
             <nav className="flex justify-end items-end w-full p-2 ">
               <ul className="flex justify-end gap-6 w-full mr-2">
                 <li className="side_text uppercase text-3xl">CREDIT</li>
@@ -78,7 +84,7 @@ function App() {
               </ul>
             </nav>
             <div className="flex  justify-end items-start w-full p-2 pr-8 ">
-              <div className="bg-[#edc639] absolute right-64 flex justify-end items-end h-[450px] w-1"></div>
+              <div className="bg-[#edc639] absolute right-64 flex justify-end items-end h-[470px] w-1"></div>
               <div className="flex justify-between flex-col gap-28">
 
                 <div className="">
@@ -154,11 +160,94 @@ function App() {
 
               </div>
             </div>
+
+            <div className="absolute w-full flex justify-center items-center bottom-20">
+
+              <div className="relative ml-10" >
+                <div className="bg-[#edc639] left absolute flex justify-end items-end h-[100px] w-1"></div>
+                <div>
+                  <h1 className=" bg !bg-[#bdb523] text-left pl-2  p_text w-[250px] text-4xl">BEGINNING</h1>
+                  <p className="text-[17px] pl-5 side_text  bg-[#3c3c3b2f] text-[#585858] py-5 ">INTORDUCTION</p>
+                </div>
+              </div>
+
+              <div className="relative ml-10" >
+                <div className="bg-[#1a1a1a6b]  left absolute flex justify-end items-end h-[100px] w-1"></div>
+                <div>
+                  <h1 className="bg-[#1a1a1a6b]  text-left pl-2  p_text w-[250px] text-4xl">LOGS</h1>
+                  <p className="text-[17px] pl-5 side_text  bg-[#3c3c3b2f] text-[#585858] py-1 ">DEGREES <br />
+                    INTERNSHIGSAND ON
+                    <br />    JOB TRRINING</p>
+                </div>
+              </div>
+              <div className="relative ml-10" >
+                <div className="bg-[#1a1a1a6b] left absolute flex justify-end items-end h-[100px] w-1"></div>
+                <div>
+                  <h1 className="  bg-[#1a1a1a6b] text-left pl-2  p_text w-[250px] text-4xl">CRAFTSMANSHIPS</h1>
+                  <p className="text-[17px] pl-5 side_text  bg-[#3c3c3b2f] text-[#585858] py-4 ">SKILL SETS AND <br />
+                    FUTURE GORLS</p>
+                </div>
+              </div>
+              <div className="relative ml-10" >
+                <div className="bg-[#1a1a1a6b] left absolute flex justify-end items-end h-[100px] w-1"></div>
+                <div>
+                  <h1 className="  bg-[#1a1a1a6b] text-left pl-2  p_text w-[250px] text-4xl">CREATIONS</h1>
+                  <p className="text-[17px] pl-5 side_text  bg-[#3c3c3b2f] text-[#585858] py-2 ">PERSONAL PROJECTS <br />
+                    WIREFRRMES,MOCKUPS, <br />
+                    PROTOTYPES,RNIMATIONS</p>
+                </div>
+              </div>
+              <div className="relative ml-10" >
+                <div className="bg-[#1a1a1a6b] left absolute flex justify-end items-end h-[100px] w-1"></div>
+                <div>
+                  <h1 className="  bg-[#1a1a1a6b] text-left pl-2  p_text w-[250px] text-4xl">ABOUT PLAYER</h1>
+                  <p className="text-[17px] pl-5 side_text  bg-[#3c3c3b2f] text-[#585858] py-6 ">OVERVIEW</p>
+                </div>
+              </div>
+
+            </div>
+            {/* Navigation Paths */}
+            {/* <NavigationPaths /> */}
+
+            {/* Sound controls */}
+            <div className="absolute bottom-4 right-4 flex flex-col gap-3" >
+              <div className="flex items-start justify-between gap-3 p_text text-2xl">
+                <button
+                  onClick={toggleMute}
+                  className=" text-sm"
+                >
+                  {isMuted ? <span className="text-lg text-amber-500">Sound Effect</span> : "Mute"} 
+                </button>
+                <SquareCheck className="text-amber-500" />
+              </div>
+
+              <div className="flex items-start justify-between gap-3 p_text" >
+                <button
+                  onClick={playClickSound}
+                  className="text-sm" >
+                  <span className="text-lg text-amber-500"> Music</span>
+                </button> 
+                <X className="text-amber-500" />
+              </div>
+
+              <div className="flex  items-start justify-between gap-3 p_text">
+                <button
+                  onClick={playClickSound}
+                  className="text-sm" >
+              <span className="text-lg text-amber-500">Visual Settings</span>
+                </button> 
+                <Settings className="text-amber-500" />
+              </div>
+             
+
+
+            </div>
           </div>
         </motion.div>
       )}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+

@@ -8,3 +8,8 @@
 .p_text{
     font-family: "Odibee Sans";
 }
+.bg{
+    background: url("/bg (2).png") no-repeat;
+    background-position: right;
+    background-size: contain;
+}
