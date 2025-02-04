@@ -17,12 +17,13 @@ interface Character {
     return (
       <div className="bg-black/80 p-4 rounded-lg">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg">FILTER & SORT</h2>
-          <div className="flex gap-2 text-sm">
-            <span>Filter:</span>
-            <span>Favourites</span>
-            <span>Sort:</span>
-            <span>Date Earned ↓</span>
+          <h2 className="text-lg side_text">FILTER & SORT</h2>
+          <div className="flex flex-col gap-2 text-sm side_text">
+            <div className="flex gap-2">  <span>Filter:</span>
+            <span>Favourites</span></div>
+          <div className="flex gap-2"> <span>Sort:</span>
+            <span>Date Earned ↓</span></div>
+           
           </div>
         </div>
   
@@ -36,7 +37,7 @@ interface Character {
               {index < 8 && (
                 <>
                   <img
-                    src={`/placeholder.svg?height=200&width=200`}
+                    src={`https://placehold.co/600x600`}
                     alt={`Character ${index + 1}`}
                     className="w-full h-full object-cover"
                   />
