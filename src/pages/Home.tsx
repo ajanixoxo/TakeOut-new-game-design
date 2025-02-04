@@ -4,7 +4,8 @@ import backgroundVideo from "/video.mp4"
 import backgroundMusic from "/homesound.m4a"
 import clickSound from "/click.wav"
 import { SquareCheck, Settings, X } from "lucide-react"
-
+import { Link } from "react-router-dom"
+import Clock from "../components/Clock"
 
 function Home() {
     const [showHome, setShowHome] = useState(false)
@@ -77,8 +78,8 @@ function Home() {
                         <nav className="flex justify-end items-end w-full p-2 ">
                             <ul className="flex justify-end gap-6 w-full mr-2">
                                 <li className="side_text uppercase text-3xl">CREDIT</li>
-                                <li className="side_text uppercase text-2xl text-[#959595]">SERVER TIME <span className="text-white text-3xl">9 : 45</span></li>
-                                <li className="side_text uppercase text-2xl text-[#959595]">LOCAL TIME <span className="text-white text-3xl">12 : 30</span></li>
+                                <li className="side_text uppercase text-2xl text-[#959595]">SERVER TIME <span className="text-white text-3xl"><Clock format="HH:mm"/></span></li>
+                                <li className="side_text uppercase text-2xl text-[#959595]">LOCAL TIME <span className="text-white text-3xl"><Clock format="HH:mm"/></span></li>
 
                             </ul>
                         </nav>
@@ -162,13 +163,13 @@ function Home() {
 
                         <div className="absolute w-full flex justify-center items-center bottom-20">
 
-                            <div className="relative ml-10"  onClick={playClickSound} >
+                            <Link to="/start" className="relative ml-10"  onClick={playClickSound} >
                                 <div className="bg-[#edc639] left absolute flex justify-end items-end h-[100px] w-1"></div>
                                 <div>
                                     <h1 className=" bg !bg-[#bdb523] text-left pl-2  p_text w-[250px] text-4xl">BEGINNING</h1>
                                     <p className="text-[17px] pl-5 side_text  bg-[#3c3c3b2f] text-[#585858] py-5 ">INTORDUCTION</p>
                                 </div>
-                            </div>
+                            </Link>
 
                             <div className="relative ml-10" >
                                 <div className="bg-[#1a1a1a6b]  left absolute flex justify-end items-end h-[100px] w-1"></div>
