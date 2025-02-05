@@ -5,16 +5,26 @@ import { CharacterInfo } from "../components/character-info"
 import { ActiveQuest } from "../components/active-quest"
 import { CharacterGrid } from "../components/character-grid"
 import Clock from "../components/Clock"
+import { NormalModal, LoadingModal } from "ade-modal-package";
 function Start() {
+
     const videoRef = useRef<HTMLVideoElement | null>(null)
     const audioRef = useRef<HTMLAudioElement | null>(null)
+    const [isOpen, setIsOpen] = useState(true)
     const [selectedCharacter, setSelectedCharacter] = useState({
         name: "IKENGA",
         description:
             "KNOWN FOR HIS PROWESS AND SHEAR STRENGTH, IKENGA TEARS DOWN HIS ENEMIES. HIS LOW CENTR OF GRAVITY GIVES IM STABILITY. HE IS NOT FIRM WITH OTHER WEAPONS OTHER THAN THE SPEAR",
     })
 
+    const handleModal = () => {
+        if (isOpen === true) {
+            setIsOpen(false)
 
+        } else {
+            setIsOpen(true)
+        }
+    }
 
     useEffect(() => {
 
@@ -142,8 +152,25 @@ function Start() {
                         <image id="image12_2098_18" width={46} height={11} xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAALCAYAAAAA2L+yAAACBklEQVR4nLWVUY4TMQyG/98zaLstr+xxWKmCRcttOAnnQbws4kiLCloy+Xmwk3GmLTwRqYmdceLPjpMS0d49HAUAkHdGwzQZpmmCGUESNPORBI0gXTeLH9Nc2AEMD0Ju0qinD6OlBDSfNBiBH8/PmD8+Pjzd3b3BUpfwQUACgQBc92CDSIPYlhGQ41EjphK3kqJ1YmSPPQIi+RfMJux2t5gPh/3968MeUg0SX9r3Y8g5E0qO3drH6rYK8p7VS4HkYLbUKVjnVmADAmHzhNnMIAlm65EqciunCFAO0HXj7MrBb1Av4l/RW+NopYoqYSaZzmU1VR456l40kVUoVva8p9pYZWq1yLWjjd6kfDMsBSYJkjAL1RWux8FwoTimVpeKqHoJxGG0Q1Fbd9afj12+dkeDhF0CJE+y6oK5/C6oS+0xSgk8JoZx47DJkmOr13aWL6/5F3yHJnvYRoAmzEutKKVgxgR18LRXKMN1TLpaGcRcO8pWRsAa1GXYZjP6y7VS4+ViGBDAfDr9/Hy63X+6uXnVt2kGoEd7Bt5b9rbeYX9zfb6UJd0DbORNkjbs3YvSyygBqr7H44f3T7vdDrRYUOHvd/8T2YJ6s96li00DW8AgSin3rucdmHr9FZwheIkQUMXLy69vxH9ux+Nb9X/eSFtLxpiUKIL+6rb6i1Dj07IUfPn6nX8AR6JcexLc03UAAAAASUVORK5CYII=" />
                     </defs>
                 </svg></div>
-                
 
+                {isOpen && (
+               <LoadingModal  
+               onClose={handleModal}
+               wrapperClassName='fixed inset-0 top-0 flex flex-col items-center justify-center  bg-black/50 z-50'
+               contentClassName='bg-white rounded-xl text-black p-6 max-w-md w-full'
+               animation='https://lottie.host/689fae78-743b-46df-93f3-5c8cd49dfb37/ELRuQOydmm.lottie'
+               closeButtonClassName='absolute top-2 right-2  rounded-xl text-white'
+               iconClassName='text-white text-2xl hover:text-gray-200 absolute top-5- right-50'>
+             
+               <div className="flex flex-col items-center justify-center space-y-4">
+                   <div className="text-black text-xl">Loading, please wait...</div>
+                   <div className="animate-pulse text-black">Fetching data...</div>
+               </div>
+           
+           </LoadingModal>
+           
+    
+)}
 
             </div>
 
